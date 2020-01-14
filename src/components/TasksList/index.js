@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchTasks } from '../../data/actions';
+import TaskCard from '../TaskCard';
+import './styles.scss';
 
 class TasksList extends React.Component {
 
 	state = {
-		pageNumber: 1
+		pageNumber: 30
 	};
 
 	componentDidMount() {
@@ -16,13 +18,17 @@ class TasksList extends React.Component {
 		const { tasks } = this.props;
 
 		return (
-			<div>
+			<div className="tasks-wrapper">
+				<h2>Tasks:</h2>
+				<button className="btn btn--sign-in">Sign in</button>
+				<button className="btn btn--add-new-task">Add new task</button>
 				{tasks
-				? <ul>
+				? <ul className="tasks-list">
 						{tasks.map((task, index) => (
-							<li key={index}>
-								{task.id}. {task.text} - [{task.username}]
-							</li>
+							<TaskCard
+								task={task}
+								key={index}
+							/>
 						))}
 					</ul>
 				: null
