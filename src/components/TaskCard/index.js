@@ -8,7 +8,8 @@ const TaskCard = ({ task }) => (
 					{task.text}
 				</span>
 				<span className="task-card_status">
-					{task.status}
+					{/*{task.status ? 'done' : '-'}*/}
+					<input type="checkbox" defaultChecked={task.status}/>
 				</span>
 			</div>
 
