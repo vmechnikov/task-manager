@@ -3,7 +3,7 @@ import { Modal, Form, Input } from 'antd';
 import { connect } from 'react-redux';
 import { fetchNewTask } from '../../data/actions';
 
-const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
+const AddTaskForm = Form.create({ name: 'form_in_modal' })(
 	class extends React.Component {
 		render() {
 			const { visible, onCancel, onCreate, form } = this.props;
@@ -43,7 +43,7 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
 	},
 );
 
-class CollectionsPage extends React.Component {
+class AddTaskFormPage extends React.Component {
 	state = {
 		visible: false,
 	};
@@ -81,7 +81,7 @@ class CollectionsPage extends React.Component {
 				<button className="btn btn--add-new-task" onClick={this.showModal}>
 					Add new task
 				</button>
-				<CollectionCreateForm
+				<AddTaskForm
 					wrappedComponentRef={this.saveFormRef}
 					visible={this.state.visible}
 					onCancel={this.handleCancel}
@@ -98,4 +98,4 @@ const mapDispatchToProps = dispatch => {
 	}
 };
 
-export default connect(null, mapDispatchToProps)(CollectionsPage);
+export default connect(null, mapDispatchToProps)(AddTaskFormPage);
