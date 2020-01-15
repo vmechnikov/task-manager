@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
-import { addNewTask } from "../../data/services";
+import { connect } from 'react-redux';
+import { fetchNewTask } from '../../data/actions';
 
 const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
 	class extends React.Component {
@@ -57,15 +58,16 @@ class CollectionsPage extends React.Component {
 
 	handleCreate = () => {
 		const { form } = this.formRef.props;
+
 		form.validateFields((err, values) => {
 			if (err) {
 				return;
 			}
 
 			console.log('Received values of form: ', values);
-			addNewTask(values).then();
 			form.resetFields();
 			this.setState({ visible: false });
+			this.props.addNewTask(values).then();
 		});
 	};
 
@@ -77,7 +79,7 @@ class CollectionsPage extends React.Component {
 		return (
 			<React.Fragment>
 				<button className="btn btn--add-new-task" onClick={this.showModal}>
-					New Collection
+					Add new task
 				</button>
 				<CollectionCreateForm
 					wrappedComponentRef={this.saveFormRef}
@@ -90,4 +92,10 @@ class CollectionsPage extends React.Component {
 	}
 }
 
-export default CollectionsPage;
+const mapDispatchToProps = dispatch => {
+	return {
+		addNewTask: newTask => dispatch(fetchNewTask(newTask))
+	}
+};
+
+export default connect(null, mapDispatchToProps)(CollectionsPage);
