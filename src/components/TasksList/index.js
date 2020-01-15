@@ -4,6 +4,7 @@ import { fetchTasks } from '../../data/actions';
 import TaskCard from '../TaskCard';
 import './styles.scss';
 import TasksPagination from '../Pagination';
+import CollectionsPage from "../AddTaskForm";
 
 class TasksList extends React.Component {
 
@@ -30,7 +31,7 @@ class TasksList extends React.Component {
 			<div className="tasks-wrapper">
 				<h2>Tasks:</h2>
 				<button className="btn btn--sign-in">Sign in</button>
-				<button className="btn btn--add-new-task">Add new task</button>
+				<CollectionsPage />
 				{tasks
 				? <React.Fragment>
 						<ul className="tasks-list">
