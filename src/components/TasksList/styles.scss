@@ -22,22 +22,6 @@
 }
 
 
-.tasks-pagination {
-  text-align: center;
-}
-.ant-pagination-item-active {
-  border-color: transparent;
-}
-.ant-pagination-item-active a {
-  color: #fff;
-  background-color: #292929;
-  border-radius: 3px;
-}
-.ant-pagination-item-active:focus a, .ant-pagination-item-active:hover a {
-  color: #fff;
-}
-
-
 @media only screen and (min-width: 1024px) {
   .tasks-wrapper {
     width: 60%;

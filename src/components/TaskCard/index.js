@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.scss';
+import CheckboxInput from '../CheckboxInput';
 
 const TaskCard = ({ task }) => (
 		<li className="task-card">
@@ -8,8 +9,7 @@ const TaskCard = ({ task }) => (
 					{task.text}
 				</span>
 				<span className="task-card_status">
-					{/*{task.status ? 'done' : '-'}*/}
-					<input type="checkbox" defaultChecked={task.status}/>
+					<CheckboxInput taskStatus={task.status} />
 				</span>
 			</div>
 
