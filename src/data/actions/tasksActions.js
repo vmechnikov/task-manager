@@ -7,8 +7,8 @@ export function fetchTasks(pageNumber) {
 		getTasks(pageNumber)
 			.then(res => {
 				if (res) {
-					console.log(res.tasks);
-					dispatch(success(res.tasks));
+					console.log(res);
+					dispatch(success(res.tasks, res.total_task_count));
 				}
 			})
 			.catch(err => {
@@ -24,10 +24,11 @@ export function fetchTasks(pageNumber) {
 		}
 	}
 
-	function success(tasks) {
+	function success(tasks, totalTasksCount) {
 		return {
 			type: tasksConstants.TASKS_SUCCESS,
-			tasks
+			tasks,
+			totalTasksCount
 		}
 	}
 
