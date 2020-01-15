@@ -1,0 +1,29 @@
+.tasks-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.tasks-list {
+  list-style: none;
+}
+
+.btn {
+  background-color: #292929;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn--add-new-task {
+  margin-left: 10px;
+}
+
+
+@media only screen and (min-width: 1024px) {
+  .tasks-wrapper {
+    width: 60%;
+  }
+}
