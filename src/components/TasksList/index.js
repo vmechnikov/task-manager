@@ -4,7 +4,9 @@ import { fetchTasks } from '../../data/actions';
 import TaskCard from '../TaskCard';
 import './styles.scss';
 import TasksPagination from '../Pagination';
-import CollectionsPage from "../AddTaskForm";
+import AddTaskForm from '../AddTaskForm';
+import SignInForm from '../SignInForm';
+import {signOut} from '../../data/actions/authActions';
 
 class TasksList extends React.Component {
 
@@ -30,8 +32,16 @@ class TasksList extends React.Component {
 		return (
 			<div className="tasks-wrapper">
 				<h2>Tasks:</h2>
-				<button className="btn btn--sign-in">Sign in</button>
-				<CollectionsPage />
+				{!this.props.userToken
+					? <SignInForm />
+					: <button
+						className="btn"
+						onClick={this.props.signOut}
+					>
+						Sign Out
+				</button>
+				}
+				<AddTaskForm />
 				{tasks
 				? <React.Fragment>
 						<ul className="tasks-list">
@@ -55,16 +65,18 @@ class TasksList extends React.Component {
 	}
 }
 
-const mapStateToProps = ({ tasksReducer })  => {
+const mapStateToProps = ({ tasksReducer, authReducer })  => {
 	return {
 		tasks: tasksReducer.tasks,
 		totalTasksCount: tasksReducer.totalTasksCount,
+		userToken: authReducer.userToken,
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getTasks: pageNumber => dispatch(fetchTasks(pageNumber))
+		getTasks: pageNumber => dispatch(fetchTasks(pageNumber)),
+		signOut: () => dispatch(signOut())
 	}
 };
 
