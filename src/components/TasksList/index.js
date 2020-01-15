@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Pagination } from 'antd';
 import { fetchTasks } from '../../data/actions';
 import TaskCard from '../TaskCard';
 import './styles.scss';
+import TasksPagination from '../Pagination';
 
 class TasksList extends React.Component {
 
@@ -41,12 +41,10 @@ class TasksList extends React.Component {
 								/>
 							))}
 						</ul>
-						<Pagination
-							className="tasks-pagination"
-							defaultCurrent={pageNumber}
-							total={Number(totalTasksCount)}
-							pageSize={3}
-							onChange={e => this.onPageChange(e)}
+						<TasksPagination
+							pageNumber={pageNumber}
+							totalTasksCount={Number(totalTasksCount)}
+							onPageChange={e => this.onPageChange(e)}
 						/>
 					</React.Fragment>
 				: null
@@ -56,17 +54,17 @@ class TasksList extends React.Component {
 	}
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = ({ tasksReducer })  => {
 	return {
-		tasks: state.tasksReducer.tasks,
-		totalTasksCount: state.tasksReducer.totalTasksCount,
-}
-}
+		tasks: tasksReducer.tasks,
+		totalTasksCount: tasksReducer.totalTasksCount,
+	}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
 	return {
 		getTasks: pageNumber => dispatch(fetchTasks(pageNumber))
 	}
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksList);
