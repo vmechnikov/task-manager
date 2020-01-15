@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import 'antd/dist/antd.css';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Layout from './layout';
