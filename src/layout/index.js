@@ -1,8 +1,9 @@
 import React from 'react';
+import HomePage from '../pages/HomePage';
 
 const Layout = () => (
 	<React.Fragment>
-		123
+		<HomePage />
 	</React.Fragment>
 );
 
