@@ -3,6 +3,7 @@ import { tasksConstants } from '../constants';
 export const initialState = {
 	loading: false,
 	tasks: [],
+	totalTasksCount: null,
 };
 
 const tasksReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const tasksReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				tasks: action.tasks
+				tasks: action.tasks,
+				totalTasksCount: action.totalTasksCount
 			};
 		case tasksConstants.TASKS_FAILURE:
 			return {
