@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import html from 'react-escape-html';
 import './styles.scss';
 import CheckboxInput from '../CheckboxInput';
-import { connect } from 'react-redux';
 import {updateTaskText} from "../../data/actions";
 
 class TaskCard extends React.Component {
@@ -32,9 +33,9 @@ class TaskCard extends React.Component {
 							}
 						}
 					/>
-				: <span className="task-card__text">
-						{task.text}
-					</span>
+					: <span dangerouslySetInnerHTML={{
+						  __html: task.text
+					  }}/>
 				}
 				<span className="task-card_status">
 					{
