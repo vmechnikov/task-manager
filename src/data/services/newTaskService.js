@@ -1,4 +1,5 @@
 import axios from 'axios';
+import openNotificationWithIcon from "../helpers/Notification";
 
 const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -35,5 +36,9 @@ export const editTaskText = ({ id, text }) => {
 		fd,
 		config
 		)
-		.then(res => console.log(res));
+		.then(res => {
+			if (res.data.status === 'error') {
+				openNotificationWithIcon('error', 'Login please');
+			}
+		});
 };
