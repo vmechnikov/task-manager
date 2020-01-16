@@ -70,7 +70,7 @@ class SignInFormPage extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button className="btn btn--add-new-task" onClick={this.showModal}>
+        <button className="btn" onClick={this.showModal}>
           Sign In
         </button>
         <SignInForm
