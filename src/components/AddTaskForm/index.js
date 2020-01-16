@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
 import { connect } from 'react-redux';
-import { fetchNewTask } from '../../data/actions';
+import { fetchNewTask, fetchTasks } from '../../data/actions';
 
 const AddTaskForm = Form.create({ name: 'form_in_modal' })(
 	class extends React.Component {
@@ -58,6 +58,7 @@ class AddTaskFormPage extends React.Component {
 
 	handleCreate = () => {
 		const { form } = this.formRef.props;
+		const { addNewTask, updateTasksList } = this.props;
 
 		form.validateFields((err, values) => {
 			if (err) {
@@ -67,7 +68,10 @@ class AddTaskFormPage extends React.Component {
 			console.log('Received values of form: ', values);
 			form.resetFields();
 			this.setState({ visible: false });
-			this.props.addNewTask(values).then();
+			addNewTask(values)
+				.then(() => {
+					updateTasksList(localStorage.getItem('currentPage'))
+				});
 		});
 	};
 
@@ -94,7 +98,8 @@ class AddTaskFormPage extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		addNewTask: newTask => dispatch(fetchNewTask(newTask))
+		addNewTask: newTask => dispatch(fetchNewTask(newTask)),
+		updateTasksList: currentPage => dispatch(fetchTasks(currentPage))
 	}
 };
 

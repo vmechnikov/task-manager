@@ -1,4 +1,4 @@
-import {newTaskConstants} from '../constants';
+import { newTaskConstants } from '../constants';
 
 const initialState = {
   newTask: null,

@@ -1,11 +1,11 @@
 import {newTaskConstants} from '../constants';
-import {addNewTask, editTaskStatus} from '../services';
+import { addNewTask, editTaskStatus, editTaskText } from '../services';
 import openNotificationWithIcon from '../helpers/Notification';
 
 export function fetchNewTask(newTask) {
   return dispatch => {
     dispatch(request());
-    addNewTask(newTask)
+    return addNewTask(newTask)
       .then(res => dispatch(success(res)))
       .catch(err => {
         dispatch(failure(err));
@@ -36,22 +36,14 @@ export function fetchNewTask(newTask) {
 
 export function updateTaskStatus(task) {
 	return dispatch => {
-		editTaskStatus(task)
-			.then(res => {
-				console.log(res);
-				// dispatch(success());
-			})
+		return editTaskStatus(task)
+			.then(res => res)
 	};
+}
 
-	function success() {
-		return {
-			type: newTaskConstants.EDIT_TASK_SUCCESS,
-		}
-	}
-
-	function failure() {
-		return {
-			type: newTaskConstants.EDIT_TASK_FAILURE,
-		}
+export function updateTaskText(task) {
+	return dispatch => {
+		return editTaskText(task)
+			.then(res => res);
 	}
 }

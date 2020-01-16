@@ -17,7 +17,23 @@ export const editTaskStatus = ({ id, status }) => {
 	fd.append('status', status === 0 ? 10 : 0);
 	fd.append('token', localStorage.getItem('userToken'));
 
-	return axios.post(`${process.env.REACT_APP_API_URL}/edit/${id}?developer=Name`, fd, config)
+	return axios.post(
+		`${process.env.REACT_APP_API_URL}/edit/${id}?developer=Name`,
+		fd,
+		config
+	)
 		.then(res => console.log(res));
 };
 
+export const editTaskText = ({ id, text}) => {
+	let fd = new FormData();
+	fd.append('text', text);
+	fd.append('token', localStorage.getItem('userToken'));
+
+	return axios.post(
+		`${process.env.REACT_APP_API_URL}/edit${id}?developer=Name`,
+		fd,
+		config
+		)
+		.then(res => console.log(res));
+};

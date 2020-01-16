@@ -50,6 +50,7 @@ class TasksList extends React.Component {
 								<TaskCard
 									task={task}
 									key={index}
+									userToken={userToken}
 								/>
 							))}
 						</ul>

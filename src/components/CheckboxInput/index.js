@@ -4,18 +4,26 @@ import { connect } from 'react-redux';
 import {fetchTasks, updateTaskStatus} from "../../data/actions";
 
 class CheckboxInput extends React.Component {
+
+	onChangeStatus = task => {
+		const { changeTaskStatus, updateTasksList } = this.props;
+
+		changeTaskStatus(task)
+			.then(() => {
+				updateTasksList(localStorage.getItem('currentPage'))
+			});
+	};
+
 	render() {
-		const { taskStatus, userToken, task, changeTaskStatus, updateTasksList } = this.props;
+		const { taskStatus, userToken, task } = this.props;
 
 		return (
 			<Checkbox
+				style={{ padding: '10px 0' }}
 				checked={taskStatus}
 				disabled={!userToken}
 				task={task}
-				onClick={() => {
-					changeTaskStatus(task);
-					updateTasksList(localStorage.getItem('currentPage'));
-				}}
+				onClick={() => this.onChangeStatus(task)}
 			/>
 		);
 	}
