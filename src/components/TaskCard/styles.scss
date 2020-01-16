@@ -33,3 +33,17 @@
 .user-info__email {
   font-size: 12px;
 }
+
+.btn--edit {
+  background-color: transparent !important;
+  padding: 5px !important;
+  margin-right: 5px;
+}
+
+.new-task-text {
+  width: 80%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+}

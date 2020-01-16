@@ -25,13 +25,13 @@ export const editTaskStatus = ({ id, status }) => {
 		.then(res => console.log(res));
 };
 
-export const editTaskText = ({ id, text}) => {
+export const editTaskText = ({ id, text }) => {
 	let fd = new FormData();
 	fd.append('text', text);
 	fd.append('token', localStorage.getItem('userToken'));
 
 	return axios.post(
-		`${process.env.REACT_APP_API_URL}/edit${id}?developer=Name`,
+		`${process.env.REACT_APP_API_URL}/edit/${id}?developer=Name`,
 		fd,
 		config
 		)
