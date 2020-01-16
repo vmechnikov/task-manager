@@ -1,7 +1,7 @@
-import {authConstants} from '../constants/authConstants';
+import { authConstants } from '../constants/authConstants';
 
 export const initialState = {
-  userToken: localStorage.getItem('userToken') ? localStorage.getItem('userToken') : null,
+  userToken: localStorage.getItem('userToken'),
 };
 
 const authReducer = (state = initialState, action) => {

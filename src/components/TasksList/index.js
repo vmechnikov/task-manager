@@ -11,7 +11,7 @@ import {signOut} from '../../data/actions/authActions';
 class TasksList extends React.Component {
 
 	state = {
-		pageNumber: 1
+		pageNumber: localStorage.getItem('currentPage') ? Number(localStorage.getItem('currentPage')) : 1
 	};
 
 	componentDidMount() {
@@ -20,6 +20,7 @@ class TasksList extends React.Component {
 
 	onPageChange = pageNumber => {
 		this.setState({ pageNumber });
+		localStorage.setItem('currentPage', pageNumber);
 
 		this.props.getTasks(pageNumber);
 		console.log(this.state.pageNumber);

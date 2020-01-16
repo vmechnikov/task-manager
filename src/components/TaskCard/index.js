@@ -9,7 +9,10 @@ const TaskCard = ({ task }) => (
 					{task.text}
 				</span>
 				<span className="task-card_status">
-					<CheckboxInput taskStatus={task.status} />
+					<CheckboxInput
+						task={task}
+						taskStatus={task.status}
+					/>
 				</span>
 			</div>
 
