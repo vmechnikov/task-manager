@@ -1,31 +1,81 @@
 import React from 'react';
 import './styles.scss';
 import CheckboxInput from '../CheckboxInput';
+import { connect } from 'react-redux';
+import {updateTaskText} from "../../data/actions";
 
-const TaskCard = ({ task, userToken }) => (
-		<li className="task-card">
-			<div className="task-card__content">
-				<span className="task-card__text">
-					{task.text}
-				</span>
-				<span className="task-card_status">
-					{userToken ? <button className="btn">Edit</button> : null}
-					<CheckboxInput
-						task={task}
-						taskStatus={task.status}
+class TaskCard extends React.Component {
+
+	state = {
+		editTask: false,
+	};
+
+	onChangeTaskText = (e, task) => {
+		task.text = e.target.value;
+	};
+
+	render() {
+		const { task, userToken, updateTaskText } = this.props;
+		const { editTask } = this.state;
+
+		return (
+			<li className="task-card">
+				<div className="task-card__content">
+				{editTask
+				? <input
+						className="new-task-text"
+						type="text"
+						autoFocus
+						defaultValue={task.text}
+						onChange={(e) => {
+								this.onChangeTaskText(e, task);
+							}
+						}
 					/>
+				: <span className="task-card__text">
+						{task.text}
+					</span>
+				}
+				<span className="task-card_status">
+					{
+						userToken
+							? <button
+								className="btn btn--edit"
+								onClick={() => {
+									this.setState({ editTask: !editTask });
+									if (editTask === true) {
+										updateTaskText(task)
+									}
+								}}
+							>
+								Edit
+							</button>
+							: null
+					}
+						<CheckboxInput
+							task={task}
+							taskStatus={task.status}
+						/>
 				</span>
-			</div>
+				</div>
 
-			<div className="task-card__user-info">
+				<div className="task-card__user-info">
 				<span className="user-info__username">
 					{task.username}
 				</span>
-				<span className="user-info__email">
+					<span className="user-info__email">
 					{task.email}
 				</span>
-			</div>
-		</li>
-);
+				</div>
+			</li>
+		);
+	}
+}
 
-export default TaskCard;
+const mapDispatchToProps = dispatch => {
+	return {
+		updateTaskText: task => dispatch(updateTaskText(task))
+	}
+};
+
+export default connect(null, mapDispatchToProps)(TaskCard);
