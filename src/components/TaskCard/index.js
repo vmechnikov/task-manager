@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import html from 'react-escape-html';
 import './styles.scss';
 import CheckboxInput from '../CheckboxInput';
-import {updateTaskText} from "../../data/actions";
+import { updateTaskText } from '../../data/actions';
 
 class TaskCard extends React.Component {
 
