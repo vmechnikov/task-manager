@@ -23,7 +23,6 @@ class TasksList extends React.Component {
 		localStorage.setItem('currentPage', pageNumber);
 
 		this.props.getTasks(pageNumber);
-		console.log(this.state.pageNumber);
 	};
 
 	render() {
