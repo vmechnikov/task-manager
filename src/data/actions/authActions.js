@@ -1,16 +1,20 @@
 import { login } from '../services';
 import { authConstants } from '../constants/authConstants';
+import openNotificationWithIcon from '../helpers/Notification';
 
 export function signIn(userData) {
   return dispatch => {
     dispatch(request());
     login(userData)
       .then(res => {
-        console.log(res.token);
-        localStorage.setItem('userToken', res.token);
-        dispatch(success(res));
-      })
-      .catch(err => dispatch(failure(err)));
+        if (res.token) {
+	        localStorage.setItem('userToken', res.token);
+	        dispatch(success(res));
+        } else {
+	        openNotificationWithIcon('error', res.password);
+	        dispatch(failure(res))
+        }
+      });
   };
 
   function request() {

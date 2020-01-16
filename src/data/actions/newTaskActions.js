@@ -1,5 +1,6 @@
 import {newTaskConstants} from '../constants';
 import { addNewTask } from '../services';
+import openNotificationWithIcon from '../helpers/Notification';
 
 export function fetchNewTask(newTask) {
   return dispatch => {
@@ -7,7 +8,6 @@ export function fetchNewTask(newTask) {
     addNewTask(newTask)
       .then(res => dispatch(success(res)))
       .catch(err => {
-        console.log(err);
         dispatch(failure(err));
       })
   };
@@ -19,6 +19,8 @@ export function fetchNewTask(newTask) {
   }
 
   function success(newTask) {
+	  openNotificationWithIcon('success', 'Задание успешно добавлено.');
+
     return {
       type: newTaskConstants.NEW_TASK_SUCCESS,
       newTask
