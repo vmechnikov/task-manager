@@ -26,20 +26,20 @@ class TasksList extends React.Component {
 	};
 
 	render() {
-		const { tasks, totalTasksCount } = this.props;
+		const { tasks, totalTasksCount, userToken } = this.props;
 		const { pageNumber } = this.state;
 
 		return (
 			<div className="tasks-wrapper">
 				<h2>Tasks:</h2>
-				{!this.props.userToken
+				{!userToken
 					? <SignInForm />
 					: <button
-						className="btn"
-						onClick={this.props.signOut}
-					>
-						Sign Out
-				</button>
+							className="btn"
+							onClick={this.props.signOut}
+						>
+							Sign Out
+						</button>
 				}
 				<AddTaskForm />
 				{tasks
