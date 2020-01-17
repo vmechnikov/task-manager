@@ -52,7 +52,11 @@ class TaskCard extends React.Component {
 										updateTaskText({ id: task.id, newText: newTaskText })
 											.then(res => {
 												if (res.data.status === 'ok') {
-													updateTasksList(localStorage.getItem(('currentPage')));
+													updateTasksList(
+														localStorage.getItem('currentPage'),
+														localStorage.getItem('sortField'),
+														localStorage.getItem('sortDirection')
+													);
 												}
 											});
 									}
@@ -85,7 +89,8 @@ class TaskCard extends React.Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		updateTaskText: updatedTask => dispatch(updateTaskText(updatedTask)),
-		updateTasksList: currentPage => dispatch(fetchTasks(currentPage)),
+		updateTasksList: (currentPage, sortField, sortDirection) =>
+			dispatch(fetchTasks(currentPage, sortField, sortDirection)),
 	}
 };
 
