@@ -10,7 +10,11 @@ class CheckboxInput extends React.Component {
 
 		changeTaskStatus(task)
 			.then(() => {
-				updateTasksList(localStorage.getItem('currentPage'))
+				updateTasksList(
+					localStorage.getItem('currentPage'),
+					localStorage.getItem('sortField'),
+					localStorage.getItem('sortDirection')
+				)
 			});
 	};
 
@@ -37,7 +41,7 @@ const mapStateToProps = ({ authReducer }) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateTasksList: currentPage => dispatch(fetchTasks(currentPage)),
+		updateTasksList: (currentPage, sortField, sortDirection) => dispatch(fetchTasks(currentPage, sortField, sortDirection)),
 		changeTaskStatus: task => dispatch(updateTaskStatus(task))
 	}
 };

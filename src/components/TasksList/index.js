@@ -6,23 +6,31 @@ import './styles.scss';
 import TasksPagination from '../Pagination';
 import AddTaskForm from '../AddTaskForm';
 import SignInForm from '../SignInForm';
-import {signOut} from '../../data/actions/authActions';
+import { signOut } from '../../data/actions/authActions';
+import SortTasksList from '../SortTasksList';
 
 class TasksList extends React.Component {
 
 	state = {
-		pageNumber: localStorage.getItem('currentPage') ? Number(localStorage.getItem('currentPage')) : 1
+		pageNumber: localStorage.getItem('currentPage') ? Number(localStorage.getItem('currentPage')) : 1,
 	};
 
 	componentDidMount() {
-		this.props.getTasks(this.state.pageNumber);
+		this.props.getTasks(
+			this.state.pageNumber,
+			localStorage.getItem('sortField'),
+			localStorage.getItem('sortDirection')
+		);
 	}
 
 	onPageChange = pageNumber => {
-		this.setState({ pageNumber });
 		localStorage.setItem('currentPage', pageNumber);
 
-		this.props.getTasks(pageNumber);
+		this.props.getTasks(
+			pageNumber,
+			localStorage.getItem('sortField'),
+			localStorage.getItem('sortDirection')
+		);
 	};
 
 	render() {
@@ -44,6 +52,7 @@ class TasksList extends React.Component {
 				<AddTaskForm />
 				{tasks
 				? <React.Fragment>
+						<SortTasksList />
 						<ul className="tasks-list">
 							{tasks.map((task, index) => (
 								<TaskCard
@@ -76,7 +85,7 @@ const mapStateToProps = ({ tasksReducer, authReducer })  => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getTasks: pageNumber => dispatch(fetchTasks(pageNumber)),
+		getTasks: (pageNumber, sortField, sortDirection) => dispatch(fetchTasks(pageNumber, sortField, sortDirection)),
 		signOut: () => dispatch(signOut())
 	}
 };

@@ -1,13 +1,12 @@
 import { tasksConstants } from '../constants';
 import { getTasks } from '../services';
 
-export function fetchTasks(pageNumber) {
+export function fetchTasks(pageNumber, sortField, sortDirection) {
 	return dispatch => {
 		dispatch(request());
-		getTasks(pageNumber)
+		getTasks(pageNumber, sortField, sortDirection)
 			.then(res => {
 				if (res) {
-					console.log(res);
 					dispatch(success(res.tasks, res.total_task_count));
 				}
 			})
