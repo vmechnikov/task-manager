@@ -39,7 +39,6 @@ class TasksList extends React.Component {
 
 		return (
 			<div className="tasks-wrapper">
-				<h2>Tasks:</h2>
 				{!userToken
 					? <SignInForm />
 					: <button
@@ -52,7 +51,10 @@ class TasksList extends React.Component {
 				<AddTaskForm />
 				{tasks
 				? <React.Fragment>
-						<SortTasksList />
+						<div className="sort-list">
+							<h2 className="sort-list__headline">Sort by:</h2>
+							<SortTasksList />
+						</div>
 						<ul className="tasks-list">
 							{tasks.map((task, index) => (
 								<TaskCard

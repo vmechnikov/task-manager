@@ -21,6 +21,15 @@
   margin-left: 10px;
 }
 
+.sort-list {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+.sort-list__headline {
+  margin: 0 15px 0 0;
+}
+
 
 @media only screen and (min-width: 1024px) {
   .tasks-wrapper {
