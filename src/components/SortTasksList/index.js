@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import { fetchTasks } from "../../data/actions";
 
 class SortTasksList extends React.Component {
+
+	state = {
+		sortField: localStorage.getItem('sortField'),
+		sortDirection: localStorage.getItem('sortDirection'),
+	};
+
 	componentDidMount() {
 		if (!localStorage.getItem('sortField')) {
 			localStorage.setItem('sortField', 'id');
@@ -16,12 +22,18 @@ class SortTasksList extends React.Component {
 
 	handleChange = field => {
 		if (localStorage.getItem('sortField') !== field) {
-			localStorage.setItem('sortDirection', 'asc');
+			localStorage.setItem('sortDirection', 'desc');
+			this.setState({ sortDirection: 'desc' });
 			localStorage.setItem('sortField', field);
+			this.setState({ sortField: field });
 		} else {
-			localStorage.getItem('sortDirection') === 'asc'
-				? localStorage.setItem('sortDirection', 'desc')
-				: localStorage.setItem('sortDirection', 'asc');
+			if (localStorage.getItem('sortDirection') === 'asc') {
+				localStorage.setItem('sortDirection', 'desc');
+				this.setState({ sortDirection: 'desc' });
+			} else {
+				localStorage.setItem('sortDirection', 'asc');
+				this.setState({ sortDirection: 'asc' });
+			}
 		}
 
 		this.props.sortTasks(
@@ -29,6 +41,18 @@ class SortTasksList extends React.Component {
 			localStorage.getItem('sortField'),
 			localStorage.getItem('sortDirection')
 		);
+	};
+
+	toggleArrow = sortFieldName => {
+		const { sortField, sortDirection } = this.state;
+
+			if (sortField === sortFieldName && sortDirection === 'desc') {
+				return <span className="arrow">&#x2198;</span>;
+			} else if (sortField === sortFieldName && sortDirection === 'asc') {
+				return <span className="arrow">&#x2197;</span>
+			} else {
+				return null;
+			}
 	};
 
 	render() {
@@ -41,25 +65,25 @@ class SortTasksList extends React.Component {
 							this.handleChange('id');
 						}}
 					>
-						Id
+						Id {this.toggleArrow('id')}
 					</button>
 					<button
 						className="btn"
 						onClick={() => this.handleChange('username')}
 					>
-						Username
+						Username {this.toggleArrow('username')}
 					</button>
 					<button
 						className="btn"
 						onClick={() => this.handleChange('email')}
 					>
-						Email
+						Email {this.toggleArrow('email')}
 					</button>
 					<button
 						className="btn"
 						onClick={() => this.handleChange('status')}
 					>
-						Status
+						Status {this.toggleArrow('status')}
 					</button>
 				</div>
 			</div>
