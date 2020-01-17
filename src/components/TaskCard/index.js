@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './styles.scss';
 import CheckboxInput from '../CheckboxInput';
-import { updateTaskText } from '../../data/actions';
+import { fetchTasks, updateTaskText } from '../../data/actions';
 
 class TaskCard extends React.Component {
 
 	state = {
 		editTask: false,
+		newTaskText: null,
 	};
 
-	onChangeTaskText = (e, task) => {
-		task.text = e.target.value;
+	onChangeTaskText = e => {
+		this.setState({ newTaskText: e.target.value });
 	};
 
 	htmlDecode = input => {
@@ -22,8 +23,8 @@ class TaskCard extends React.Component {
 	};
 
 	render() {
-		const { task, userToken, updateTaskText } = this.props;
-		const { editTask } = this.state;
+		const { task, userToken, updateTaskText, updateTasksList } = this.props;
+		const { editTask, newTaskText } = this.state;
 
 		return (
 			<li className="task-card">
@@ -34,10 +35,7 @@ class TaskCard extends React.Component {
 						type="text"
 						autoFocus
 						defaultValue={this.htmlDecode(task.text)}
-						onChange={(e) => {
-								this.onChangeTaskText(e, task);
-							}
-						}
+						onChange={e => this.onChangeTaskText(e)}
 					/>
 					: <span className="task-card__text">
 							{this.htmlDecode(task.text)}
@@ -48,10 +46,15 @@ class TaskCard extends React.Component {
 						userToken
 							? <button
 								className="btn btn--edit"
-								onClick={() => {
+								onClick={(we) => {
 									this.setState({ editTask: !editTask });
 									if (editTask === true) {
-										updateTaskText(task)
+										updateTaskText({ id: task.id, newText: newTaskText })
+											.then(res => {
+												if (res.data.status === 'ok') {
+													updateTasksList(localStorage.getItem(('currentPage')));
+												}
+											});
 									}
 								}}
 							>
@@ -81,7 +84,8 @@ class TaskCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateTaskText: task => dispatch(updateTaskText(task))
+		updateTaskText: updatedTask => dispatch(updateTaskText(updatedTask)),
+		updateTasksList: currentPage => dispatch(fetchTasks(currentPage)),
 	}
 };
 

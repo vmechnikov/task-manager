@@ -26,9 +26,9 @@ export const editTaskStatus = ({ id, status }) => {
 		.then(res => console.log(res));
 };
 
-export const editTaskText = ({ id, text }) => {
+export const editTaskText = ({ id, newText }) => {
 	let fd = new FormData();
-	fd.append('text', text);
+	fd.append('text', newText);
 	fd.append('token', localStorage.getItem('userToken'));
 
 	return axios.post(
@@ -38,7 +38,9 @@ export const editTaskText = ({ id, text }) => {
 		)
 		.then(res => {
 			if (res.data.status === 'error') {
-				openNotificationWithIcon('error', 'Login please');
+				openNotificationWithIcon('error', 'Login please and try again');
 			}
+
+			return res;
 		});
 };
