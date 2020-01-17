@@ -29,29 +29,31 @@ class TaskCard extends React.Component {
 		return (
 			<li className="task-card">
 				<div className="task-card__content">
-				{editTask
-				? <input
-						className="new-task-text"
-						type="text"
-						autoFocus
-						defaultValue={this.htmlDecode(task.text)}
-						onChange={e => this.onChangeTaskText(e)}
-					/>
-					: <span className="task-card__text">
-							{this.htmlDecode(task.text)}
-						</span>
-				}
-				<span className="task-card_status">
+					{editTask
+					? <input
+							className="new-task-text"
+							type="text"
+							autoFocus
+							defaultValue={this.htmlDecode(task.text)}
+							onChange={e => this.onChangeTaskText(e)}
+						/>
+						: <span className="task-card__text">
+								{this.htmlDecode(task.text)}
+							</span>
+					}
+					<span className="task-card_status">
 					{
 						userToken
 							? <button
 								className="btn btn--edit"
-								onClick={(we) => {
+								onClick={() => {
 									this.setState({ editTask: !editTask });
 									if (editTask === true) {
 										updateTaskText({ id: task.id, newText: newTaskText })
 											.then(res => {
 												if (res.data.status === 'ok') {
+													localStorage.setItem(`adminMark-${task.id}`, 'true');
+
 													updateTasksList(
 														localStorage.getItem('currentPage'),
 														localStorage.getItem('sortField'),
@@ -70,16 +72,21 @@ class TaskCard extends React.Component {
 							task={task}
 							taskStatus={task.status}
 						/>
-				</span>
+					</span>
 				</div>
 
+				{localStorage.getItem(`adminMark-${task.id}`)
+					? <span className="admin-mark">Edited by admin</span>
+					: null
+				}
+
 				<div className="task-card__user-info">
-				<span className="user-info__username">
-					{this.htmlDecode(task.username)}
-				</span>
-					<span className="user-info__email">
-					{this.htmlDecode(task.email)}
-				</span>
+					<span className="user-info__username">
+						{this.htmlDecode(task.username)}
+					</span>
+						<span className="user-info__email">
+						{this.htmlDecode(task.email)}
+					</span>
 				</div>
 			</li>
 		);
