@@ -75,10 +75,10 @@ class TaskCard extends React.Component {
 
 				<div className="task-card__user-info">
 				<span className="user-info__username">
-					{task.username}
+					{this.htmlDecode(task.username)}
 				</span>
 					<span className="user-info__email">
-					{task.email}
+					{this.htmlDecode(task.email)}
 				</span>
 				</div>
 			</li>
