@@ -14,6 +14,13 @@ class TaskCard extends React.Component {
 		task.text = e.target.value;
 	};
 
+	htmlDecode = input => {
+		let e = document.createElement('textarea');
+		e.innerHTML = input;
+
+		return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+	};
+
 	render() {
 		const { task, userToken, updateTaskText } = this.props;
 		const { editTask } = this.state;
@@ -26,15 +33,15 @@ class TaskCard extends React.Component {
 						className="new-task-text"
 						type="text"
 						autoFocus
-						defaultValue={task.text}
+						defaultValue={this.htmlDecode(task.text)}
 						onChange={(e) => {
 								this.onChangeTaskText(e, task);
 							}
 						}
 					/>
-					: <span dangerouslySetInnerHTML={{
-						  __html: task.text
-					  }}/>
+					: <span className="task-card__text">
+							{this.htmlDecode(task.text)}
+						</span>
 				}
 				<span className="task-card_status">
 					{
