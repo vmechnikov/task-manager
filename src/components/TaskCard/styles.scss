@@ -20,6 +20,7 @@
 
 .task-card__content {
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
 }
 .task-card__user-info {
@@ -57,4 +58,12 @@
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+  //.task-card_status {
+  //  display: flex;
+  //  flex-direction: row-reverse;
+  //  justify-content: flex-end;
+  //}
 }

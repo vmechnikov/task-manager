@@ -41,38 +41,38 @@ class TaskCard extends React.Component {
 								{this.htmlDecode(task.text)}
 							</span>
 					}
-					<span className="task-card_status">
-					{
-						userToken
-							? <button
-								className="btn btn--edit"
-								onClick={() => {
-									this.setState({ editTask: !editTask });
-									if (editTask === true) {
-										updateTaskText({ id: task.id, newText: newTaskText })
-											.then(res => {
-												if (res.data.status === 'ok') {
-													localStorage.setItem(`adminMark-${task.id}`, 'true');
-
-													updateTasksList(
-														localStorage.getItem('currentPage'),
-														localStorage.getItem('sortField'),
-														localStorage.getItem('sortDirection')
-													);
-												}
-											});
-									}
-								}}
-							>
-								Edit
-							</button>
-							: null
-					}
+					<div className="task-card_status">
 						<CheckboxInput
 							task={task}
 							taskStatus={task.status}
 						/>
-					</span>
+						{
+							userToken
+								? <button
+									className="btn btn--edit"
+									onClick={() => {
+										this.setState({ editTask: !editTask });
+										if (editTask === true) {
+											updateTaskText({ id: task.id, newText: newTaskText })
+												.then(res => {
+													if (res.data.status === 'ok') {
+														localStorage.setItem(`adminMark-${task.id}`, 'true');
+
+														updateTasksList(
+															localStorage.getItem('currentPage'),
+															localStorage.getItem('sortField'),
+															localStorage.getItem('sortDirection')
+														);
+													}
+												});
+										}
+									}}
+								>
+									Edit
+								</button>
+								: null
+						}
+					</div>
 				</div>
 
 				{localStorage.getItem(`adminMark-${task.id}`)
