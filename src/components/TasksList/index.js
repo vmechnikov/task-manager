@@ -42,15 +42,15 @@ class TasksList extends React.Component {
 				{!userToken
 					? <SignInForm />
 					: <button
-							className="btn"
-							onClick={this.props.signOut}
-						>
-							Sign Out
-						</button>
+						className="btn"
+						onClick={this.props.signOut}
+					>
+						Sign Out
+					</button>
 				}
 				<AddTaskForm />
 				{tasks
-				? <React.Fragment>
+					? <React.Fragment>
 						<div className="sort-list">
 							<h2 className="sort-list__headline">Sort by:</h2>
 							<SortTasksList />
@@ -70,7 +70,7 @@ class TasksList extends React.Component {
 							onPageChange={e => this.onPageChange(e)}
 						/>
 					</React.Fragment>
-				: null
+					: null
 				}
 			</div>
 		);

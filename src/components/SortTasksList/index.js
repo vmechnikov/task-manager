@@ -46,46 +46,44 @@ class SortTasksList extends React.Component {
 	toggleArrow = sortFieldName => {
 		const { sortField, sortDirection } = this.state;
 
-			if (sortField === sortFieldName && sortDirection === 'desc') {
-				return <span className="arrow">&#x2198;</span>;
-			} else if (sortField === sortFieldName && sortDirection === 'asc') {
-				return <span className="arrow">&#x2197;</span>
-			} else {
-				return null;
-			}
+		if (sortField === sortFieldName && sortDirection === 'desc') {
+			return <span className="arrow">&#x2198;</span>;
+		} else if (sortField === sortFieldName && sortDirection === 'asc') {
+			return <span className="arrow">&#x2197;</span>
+		} else {
+			return null;
+		}
 	};
 
 	render() {
 		return (
-			<div>
-				<div className="sort-buttons">
-					<button
-						className="btn"
-						onClick={() => {
-							this.handleChange('id');
-						}}
-					>
-						Id {this.toggleArrow('id')}
-					</button>
-					<button
-						className="btn"
-						onClick={() => this.handleChange('username')}
-					>
-						Username {this.toggleArrow('username')}
-					</button>
-					<button
-						className="btn"
-						onClick={() => this.handleChange('email')}
-					>
-						Email {this.toggleArrow('email')}
-					</button>
-					<button
-						className="btn"
-						onClick={() => this.handleChange('status')}
-					>
-						Status {this.toggleArrow('status')}
-					</button>
-				</div>
+			<div className="sort-buttons">
+				<button
+					className="btn"
+					onClick={() => {
+						this.handleChange('id');
+					}}
+				>
+					Id {this.toggleArrow('id')}
+				</button>
+				<button
+					className="btn"
+					onClick={() => this.handleChange('username')}
+				>
+					Username {this.toggleArrow('username')}
+				</button>
+				<button
+					className="btn"
+					onClick={() => this.handleChange('email')}
+				>
+					Email {this.toggleArrow('email')}
+				</button>
+				<button
+					className="btn"
+					onClick={() => this.handleChange('status')}
+				>
+					Status {this.toggleArrow('status')}
+				</button>
 			</div>
 		);
 	}
