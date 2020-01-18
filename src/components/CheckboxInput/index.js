@@ -41,7 +41,8 @@ const mapStateToProps = ({ authReducer }) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateTasksList: (currentPage, sortField, sortDirection) => dispatch(fetchTasks(currentPage, sortField, sortDirection)),
+		updateTasksList: (currentPage, sortField, sortDirection) =>
+			dispatch(fetchTasks(currentPage, sortField, sortDirection)),
 		changeTaskStatus: task => dispatch(updateTaskStatus(task))
 	}
 };

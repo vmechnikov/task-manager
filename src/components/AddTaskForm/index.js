@@ -70,7 +70,11 @@ class AddTaskFormPage extends React.Component {
 			this.setState({ visible: false });
 			addNewTask(values)
 				.then(() => {
-					updateTasksList(localStorage.getItem('currentPage'))
+					updateTasksList(
+						localStorage.getItem('currentPage'),
+						localStorage.getItem('sortField'),
+						localStorage.getItem('sortDirection')
+					)
 				});
 		});
 	};
@@ -99,7 +103,8 @@ class AddTaskFormPage extends React.Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		addNewTask: newTask => dispatch(fetchNewTask(newTask)),
-		updateTasksList: currentPage => dispatch(fetchTasks(currentPage))
+		updateTasksList: (currentPage, sortField, sortDirection) =>
+			dispatch(fetchTasks(currentPage, sortField, sortDirection))
 	}
 };
 
